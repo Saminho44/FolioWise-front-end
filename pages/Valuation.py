@@ -54,7 +54,7 @@ if selected_category == "Industry":
         inner_options = stocks_in_industry(selected_industry)
 
     selected_stocks = st.multiselect("Select stocks within the industry:", inner_options)
-    if st.button("Add to List - 1", key="add_to_list_1"):
+    if st.button("Add to List"):
         selection.append(selected_stocks)
     st.write(f"You selected the industry: {selected_industry}")
     st.write(f"You selected the stocks: {selection}")
@@ -71,18 +71,18 @@ if selected_category == "Industry":
             inner_options_2 = stocks_in_industry(selected_industry_2)
         selected_stocks_2 = st.multiselect("Select stocks within the other industry:", inner_options_2)
 
-        if st.button("add to List"):
+        if st.button("Add to List"):
             selection.append(selected_stocks_2)
 
         st.write(f"You selected the other industry: {selected_industry_2}")
-        st.write(f"You selected the other stocks: {selection}")
+        st.write(f"You selected the other stocks:", selection)
 
 
         # Add a button to exit the loop
         if st.button("End Loop"):
             break
 
-    st.write(f"Your final selection is: {selection}")
+    st.write(f"Your final stock selection is:", selection)
 
 
 if selected_category == "Stocks":
