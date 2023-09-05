@@ -1,11 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-from streamlit_extras.switch_page_button import switch_page
-
-
-if st.button("Home"):
-    switch_page("app")
 
 # functions
 def industry():
@@ -34,4 +29,4 @@ def stocks_in_industry(i):
 
 amount = st.number_input("How much would you like to invest?")
 st.write("You entered", "£",amount)
-st.write("You can invest them in these stocks")
+
