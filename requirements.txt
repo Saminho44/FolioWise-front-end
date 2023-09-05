@@ -1,2 +1,6 @@
 streamlit
+streamlit_extras
+streamlit-option-menu
 requests
+pandas
+numpy

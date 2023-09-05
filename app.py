@@ -20,9 +20,6 @@ if selected == "Optimization":
 
 
 
-st.title('FolioWise Option Menu')
-
-
 
 
 st.markdown("""
@@ -52,11 +49,9 @@ Your financial goals are our top priority. Whether you're planning for retiremen
         by your side, you're not just investing – you're investing smart!
 
 
+
 """
 
-
-if st.button("👉 Get Started Now! 👈"):
-    switch_page("page_01")
 
 
 
