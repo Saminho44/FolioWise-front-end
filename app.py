@@ -48,9 +48,20 @@ Your financial goals are our top priority. Whether you're planning for retiremen
     or simply looking to grow your wealth, we've got the tools and expertise to make it happen. With FolioWise\
         by your side, you're not just investing – you're investing smart!
 
-
+👉 Get Started Now! 👈
 
 """
+
+col1, col2 = st.columns(2)
+
+with col1:
+    if st.button("Let's optimise some stocks"):
+        switch_page("Optimization")
+with col2:
+    if st.button("Give me some stocks"):
+        switch_page("Valuation")
+
+
 
 
 
