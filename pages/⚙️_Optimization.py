@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import time
-
+import os
 from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.switch_page_button import switch_page
 
@@ -9,11 +9,11 @@ st.set_page_config(page_title="Optimization", page_icon="⚙️", layout="wide")
 
 if st.button("🏡Home"):
     switch_page("app")
-
+csv_path = os.path.join(os.getcwd())
 # functions
 def industry():
     col_names = ["Stock", "Industry"]
-    data  = pd.read_csv("snp100.csv", names=col_names, skiprows=[33, 54, 79])
+    data  = pd.read_csv(os.path.join(csv_path,"snp100.csv"), names=col_names, skiprows=[33, 54, 79])
 
     return list(data["Industry"].unique())
 
