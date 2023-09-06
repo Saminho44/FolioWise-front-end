@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import time
 
 from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.switch_page_button import switch_page
@@ -32,6 +33,13 @@ def stocks_in_industry(i):
     res = data[data["Industry"] == i]
 
     return list(res["Stock"])
+
+# def portfolio2_stocks():
+#     cols = ["Stock", "Amount"]
+#     data = pd.read_csv('raw_data/DeepDow_weights2.csv', names=cols)
+#     res = list(data["Stock"])
+
+# portfolio2_stocks = portfolio2_stocks()
 
 
 st.write("Let's optimize your stocks!")
@@ -94,32 +102,37 @@ with main_tab2:
             st.session_state.selection = []
 
         st.header("Portfolio Amount")
-        amount = st.number_input("How much would you like to invest?")
+        amount = st.number_input("How much would you like to invest?", key="portfolio1")
         st.write("You entered", "£",amount)
 
 
         st.write("Prediction")
-        if st.button("Predict"):
+        if st.button("Predict", key="portfolio11"):
+            with st.spinner(text='In progress'):
+                time.sleep(3)
+                st.success('Done')
             main_col1, main_col2 = st.columns(2, gap="small")
 
             with main_col1:
                 cols = ["Stock", "Amount"]
-                data = pd.read_csv('raw_data/Baseline_weights1.csv', index_col=0, names=cols)
+                data = pd.read_csv('raw_data/DeepDow_weights1.csv', index_col=0, names=cols)
 
                 for index, row in enumerate(data):
-                    st.write(round((data[row] * amount)), 2)
+                    st.write(round((data[row] * amount/100)), 2)
 
             with main_col2:
                 col1, col2 = st.columns(2)
-                col1.metric(label="Return", value=1000, delta=300)
-                col2.metric(label="Drawdown", value=200, delta=-20)
+                col1.metric(label="Return", value="+53.35%")
+                col2.metric(label="Drawdown", value="-1.78%")
 
                 style_metric_cards()
 
                 col3, col4 = st.columns(2)
-                col3.metric(label="Risk", value=200, delta=-20)
-                col4.metric(label="Sharpe Ratio", value=3.00, delta=-1.43)
+                col3.metric(label="Volatility", value="24.98%")
+                col4.metric(label="Sharpe Ratio", value=2.54)
                 style_metric_cards()
+
+            st.image("images/DeepDow_portfolio1.png")
 
 
 
@@ -140,9 +153,15 @@ with main_tab2:
                                                                                 key="industry_select")
 
         if st.button("Get Exposure"):
-            st.write("Print stocks for them")
-            # append stocks to selection list
-            # predict based on this
+            with st.spinner(text='In progress'):
+                time.sleep(3)
+                st.success('Done')
+            st.write("Diversified stocks:")
+            st.session_state.selection = ["Apple", "Adobe", "Abbolt", "Bristol Myers", "Capital One", "Goldman Sachs",\
+                "Simon Property", "American Tower", "Philip Morris", "Heinz Company", "Duke Energy", "NextEra Energy",\
+                    "Netflix", "AT&T", "Exxon Mobil", "ConocoPhillips", "Emerson Electric Company", "Lowes Companies", "McDonalds"]
+            st.write(", ".join(map(str, st.session_state.selection)))
+
 
         if st.button("Add to list", key="tab2"):
             for stock in selected_stocks:
@@ -156,7 +175,7 @@ with main_tab2:
         st.write(", ".join(map(str, st.session_state.selection)))
 
         st.write("Double click to clear list:")
-        if st.button("Clear List"):
+        if st.button("Clear List", key="industry"):
             st.session_state.selection = []
 
         st.header("Portfolio Amount")
@@ -165,88 +184,29 @@ with main_tab2:
 
 
         st.write("Prediction")
-        if st.button("Predict"):
+        if st.button("Predict", key="portfolio2"):
+            with st.spinner(text='In progress'):
+                time.sleep(3)
+                st.success('Done')
             main_col1, main_col2 = st.columns(2, gap="small")
 
             with main_col1:
                 cols = ["Stock", "Amount"]
-                data = pd.read_csv('raw_data/Baseline_weights2.csv', index_col=0, names=cols)
+                data = pd.read_csv('raw_data/DeepDow_weights2.csv', index_col=0, names=cols)
 
                 for index, row in enumerate(data):
                     st.write(round((data[row] * amount / 100)), 2)
 
             with main_col2:
                 col1, col2 = st.columns(2)
-                col1.metric(label="Return", value=1000, delta=300)
-                col2.metric(label="Drawdown", value=200, delta=-20)
+                col1.metric(label="Return", value="+12.49")
+                col2.metric(label="Drawdown", value="-8.62%")
 
                 style_metric_cards()
 
                 col3, col4 = st.columns(2)
-                col3.metric(label="Risk", value=200, delta=-20)
-                col4.metric(label="Sharpe Ratio", value=3.00, delta=-1.43)
+                col3.metric(label="Volatility", value="19.04%")
+                col4.metric(label="Sharpe Ratio", value=0.76)
                 style_metric_cards()
 
-# st.write("Double click to clear list:")
-# if st.button("Clear List"):
-#     st.session_state.selection = []
-
-# st.header("Portfolio Amount")
-# amount = st.number_input("How much would you like to invest?")
-# st.write("You entered", "£",amount)
-
-
-
-
-# font_css = """
-# <style>
-# button[data-baseweb="tab"] > div[data-testid="stMarkdownContainer"] > p {
-#   font-size: 24px;
-# }
-# </style>
-# """
-
-# st.write(font_css, unsafe_allow_html=True)
-# st.write("Prediction")
-# if st.button("Predict"):
-#     main_col1, main_col2, main_col3, main_col4, main_col5 = st.columns(5, gap="small")
-
-#     with main_col1:
-#         cols = ["Stock", "Amount"]
-#         data = pd.read_csv('raw_data/Baseline_weights1.csv', index_col=0, header=cols)
-
-#         for index, row in enumerate(data):
-#             st.write(round((data[row] * amount) / 100), 2)
-
-#     with main_col2:
-#         col1, col2 = st.columns(2)
-#         col1.metric(label="Return", value=1000, delta=300)
-#         col2.metric(label="Drawdown", value=200, delta=-20)
-
-#         style_metric_cards()
-
-#         col3, col4 = st.columns(2)
-#         col3.metric(label="Risk", value=200, delta=-20)
-#         col4.metric(label="Sharpe Ratio", value=3.00, delta=-1.43)
-        # style_metric_cards()
-
-
-
-
-
-
-
-
-# col1, col2, col3, col4 = st.columns(4)
-# col1.metric(label="Return", value=1000, delta=300)
-# col2.metric(label="Drawdown", value=200, delta=-20)
-# col3.metric(label="Risk", value=200, delta=-20)
-# col4.metric(label="Sharpe Ratio", value=3.00, delta=-1.43)
-# style_metric_cards()
-
-
-# 🏡_Home
-
-
-
-# if st.session_state.selection == [AAPL, ACN, ADBE, AMD, AVGO, CRM, CSCO, IBM, INTC, MA, MSFT, NVDA, ORCL, PYPL, QCOM, TXN, V]
+            st.image("images/DeepDow_portfolio2.png")
