@@ -21,7 +21,7 @@ industry = industry()
 
 def stocks():
     col_names = ["Stock", "Industry"]
-    data  = pd.read_csv("snp100.csv", names=col_names, skiprows=[33, 54, 79])
+    data  = pd.read_csv(os.path.join(csv_path,"snp100.csv"), names=col_names, skiprows=[33, 54, 79])
 
     return list(data["Stock"])
 
@@ -29,7 +29,7 @@ stocks = stocks()
 
 def stocks_in_industry(i):
     col_names = ["Stock", "Industry"]
-    data  = pd.read_csv("snp100.csv", names=col_names, skiprows=[33, 54, 79])
+    data  = pd.read_csv(os.path.join(csv_path,"snp100.csv"), names=col_names, skiprows=[33, 54, 79])
     res = data[data["Industry"] == i]
 
     return list(res["Stock"])
@@ -115,7 +115,7 @@ with main_tab2:
 
             with main_col1:
                 cols = ["Stock", "Amount"]
-                data = pd.read_csv('raw_data/DeepDow_weights1.csv', index_col=0, names=cols)
+                data = pd.read_csv(os.path.join(csv_path,"raw_data","DeepDow_weights1.csv"), index_col=0, names=cols)
 
                 for index, row in enumerate(data):
                     st.write(round((data[row] * amount/100)), 2)
@@ -192,7 +192,7 @@ with main_tab2:
 
             with main_col1:
                 cols = ["Stock", "Amount"]
-                data = pd.read_csv('raw_data/DeepDow_weights2.csv', index_col=0, names=cols)
+                data = pd.read_csv(os.path.join(csv_path,"raw_data","DeepDow_weights2.csv"), index_col=0, names=cols)
 
                 for index, row in enumerate(data):
                     st.write(round((data[row] * amount / 100)), 2)
