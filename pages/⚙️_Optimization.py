@@ -7,7 +7,7 @@ from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(page_title="Optimization", page_icon="⚙️", layout="wide")
 
 if st.button("🏡Home"):
-    switch_page("Home")
+    switch_page("app")
 
 # functions
 def industry():
@@ -138,19 +138,6 @@ with main_tab2:
             selected_industry =  multi_industries.multiselect("Select one or more industries:",inner_options,\
                                                                             placeholder="Select an industry",\
                                                                                 key="industry_select")
-        # inner_options = stocks
-
-        # industries = st.container()
-        # select_all = st.checkbox("Select all", key="stock select_all")
-
-        # if select_all:
-        #     selected_stocks = industries.multiselect("Select one or more stocks:", inner_options, inner_options,\
-        #                                                                         placeholder="Select a stock",\
-        #                                                                             key="stock industry_select")
-        # else:
-        #     selected_stocks =  industries.multiselect("Select one or more stocks:",inner_options,\
-        #                                                                     placeholder="Select a stock",\
-        #                                                                         key="stock industry_select")
 
         if st.button("Get Exposure"):
             st.write("Print stocks for them")
@@ -167,6 +154,38 @@ with main_tab2:
         st.header("Selected Options:")
         st.write("You selected:")
         st.write(", ".join(map(str, st.session_state.selection)))
+
+        st.write("Double click to clear list:")
+        if st.button("Clear List"):
+            st.session_state.selection = []
+
+        st.header("Portfolio Amount")
+        amount = st.number_input("How much would you like to invest?")
+        st.write("You entered", "£",amount)
+
+
+        st.write("Prediction")
+        if st.button("Predict"):
+            main_col1, main_col2 = st.columns(2, gap="small")
+
+            with main_col1:
+                cols = ["Stock", "Amount"]
+                data = pd.read_csv('raw_data/Baseline_weights2.csv', index_col=0, names=cols)
+
+                for index, row in enumerate(data):
+                    st.write(round((data[row] * amount / 100)), 2)
+
+            with main_col2:
+                col1, col2 = st.columns(2)
+                col1.metric(label="Return", value=1000, delta=300)
+                col2.metric(label="Drawdown", value=200, delta=-20)
+
+                style_metric_cards()
+
+                col3, col4 = st.columns(2)
+                col3.metric(label="Risk", value=200, delta=-20)
+                col4.metric(label="Sharpe Ratio", value=3.00, delta=-1.43)
+                style_metric_cards()
 
 # st.write("Double click to clear list:")
 # if st.button("Clear List"):

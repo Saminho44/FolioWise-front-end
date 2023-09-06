@@ -7,7 +7,7 @@ st.set_page_config(page_title="Valuation", page_icon="🤑", layout="wide")
 
 
 if st.button("🏡Home"):
-    switch_page("Home")
+    switch_page("app")
 
 # functions
 def industry():
