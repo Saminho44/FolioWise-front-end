@@ -171,7 +171,6 @@ __MACOSX
 *.gz
 *PKG-INFO
 *.egg-info
-*.csv
 05-ML/**/*.txt
 06-Deep-Learning/**/*.txt
 *.zip
