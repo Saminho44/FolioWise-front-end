@@ -3,20 +3,23 @@ import pandas as pd
 import numpy as np
 
 from streamlit_extras.switch_page_button import switch_page
+from streamlit_extras.app_logo import add_logo
 
 
 from streamlit_option_menu import option_menu
 
-st.set_page_config(page_title="FolioWise", page_icon="👋", layout="wide")
+st.set_page_config(page_title="Home", page_icon="🏡", layout="wide")
 
-with st.sidebar:
-    selected = option_menu(
-        menu_title="Main Menu",
-        options=["Home", "Optimization", "Validation"]
-    )
+# add_logo("logo.jpeg", height=20)
 
-if selected == "Optimization":
-    switch_page("pages_01")
+# with st.sidebar:
+#     selected = option_menu(
+#         menu_title="Main Menu",
+#         options=["Home", "Optimization", "Validation"]
+#     )
+
+# if selected == "Optimization":
+#     switch_page("Optimization")
 
 
 
@@ -55,10 +58,10 @@ Your financial goals are our top priority. Whether you're planning for retiremen
 col1, col2 = st.columns(2)
 
 with col1:
-    if st.button("Let's optimise some stocks"):
+    if st.button("⚙️Optimize"):
         switch_page("Optimization")
 with col2:
-    if st.button("Give me some stocks"):
+    if st.button("🤑Exposure"):
         switch_page("Valuation")
 
 
