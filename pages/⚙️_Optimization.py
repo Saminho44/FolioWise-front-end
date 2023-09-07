@@ -8,7 +8,7 @@ from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(page_title="Optimization", page_icon="⚙️", layout="wide")
 
 if st.button("🏡Home"):
-    switch_page("app")
+    switch_page("Home")
 csv_path = os.path.join(os.getcwd())
 # functions
 def industry():
@@ -91,9 +91,13 @@ with main_tab2:
 
 
 
-        st.header("Selected Options:")
-        st.write("You selected:")
-        st.write(", ".join(map(str, st.session_state.selection)))
+                st.header("Selected Options:")
+                st.write("You selected:")
+                stock_names = ["Visa Inc", "Texas Instruments Incorporated", "QUALCOMM Incorporated", "PayPal Holdings",\
+                    "Oracle Corporation","NVIDIA Corporation", "Microsoft", "Mastercard", "Intel Corporation",\
+                        "International Business Machines Corporation", "Cisco Systems", "Salesforce", "Broadcom Limited",\
+                            "Advanced Micro Devices", "Adobe Systems Incorporated", "Accenture", "Apple"]
+                st.write(", ".join(map(str, stock_names)))
 
 
 
