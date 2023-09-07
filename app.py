@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import time
 import json
-
+import base64
 from PIL import Image
 from streamlit_lottie import st_lottie
 from streamlit_extras.metric_cards import style_metric_cards
@@ -11,6 +11,26 @@ from streamlit_option_menu import option_menu
 
 
 st.set_page_config(page_title="Home", page_icon="🏡", layout="wide")
+
+print(os.getcwd())
+
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url(data:image/{"webp"};base64,{encoded_string.decode()});
+        background-size: cover
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+
+
+add_bg_from_local('images/brain.webp')
 
 def add_logo(logo_path, width, height):
     """Read and return a resized logo"""
@@ -67,7 +87,7 @@ if selected == "Home":
     # st_lottie(homepage)
     st.markdown("<h1 style='text-align: center; color: black;'>Welcome to FolioWise</h1>", unsafe_allow_html=True)
 
-    st.markdown("<h6 style='text-align: center; color: black;'>We are so glad you stopped by!</h6>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: black;'>We are so glad you stopped by!</h4>", unsafe_allow_html=True)
 
 
     """🚀 Welcome to FolioWise - Where Your Portfolio Soars to New Heights! 📈"""
