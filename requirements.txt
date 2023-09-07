@@ -3,4 +3,3 @@ streamlit_extras
 requests
 pandas
 numpy
-os
