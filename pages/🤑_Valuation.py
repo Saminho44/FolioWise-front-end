@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+import time
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.metric_cards import style_metric_cards
 
@@ -8,7 +9,7 @@ st.set_page_config(page_title="Valuation", page_icon="🤑", layout="wide")
 
 
 if st.button("🏡Home"):
-    switch_page("app")
+    switch_page("Home")
 csv_path = os.path.join(os.getcwd())
 
 # functions
@@ -40,19 +41,39 @@ amount = st.number_input("How much would you like to invest?")
 st.write("You entered", "£",amount)
 
 if st.button("Create Portfolio"):
-    st.write("The model will be inserted here; prints list of stocks")
+    with st.spinner(text='In progress'):
+                time.sleep(3)
+                st.success('Done')
+    portfolio = ["Advanced Micro Devices", "Apple", "Berkshire Hathaway", "Boeing Company", "Broadcom Limited",\
+        "Caterpillar", "Cisco Systems", "Eli Lily and Company", "FedEx Corporation", "Netflix", "Oracle Corporation",\
+            "Visa Inc", "Walmart Inc"]
+    st.write("What do you think of these?")
+    st.write(", ".join(map(str, portfolio)))
 
 
 if st.button("Optimize Portfolio"):
-    st.write("A table with weights will be ouputted")
+    with st.spinner(text='In progress'):
+                time.sleep(3)
+                st.success('Done')
+    main_col1, main_col2 = st.columns(2, gap="small")
 
+    with main_col1:
+        cols = ["Stock", "Amount"]
+        data = pd.read_csv(os.path.join(csv_path,"raw_data","DeepDow_weights3.csv"), index_col=0, names=cols)
 
-"""
-Visualisation such as below
-"""
+        for index, row in enumerate(data):
+            st.write(round((data[row] * amount / 100)), 2)
 
-col1, col2, col3 = st.columns(3)
-col1.metric(label="Return", value=1000, delta=300)
-col2.metric(label="Risk", value=200, delta=-20)
-col3.metric(label="Sharpe Ratio", value=3.00, delta=-1.43)
-style_metric_cards()
+    with main_col2:
+        col1, col2 = st.columns(2)
+        col1.metric(label="Return", value="+35.44%")
+        col2.metric(label="Drawdown", value="-1.37%")
+
+        style_metric_cards()
+
+        col3, col4 = st.columns(2)
+        col3.metric(label="Volatility", value="12.28%")
+        col4.metric(label="Sharpe Ratio", value=3.43)
+        style_metric_cards()
+
+    st.image("images/DeepDow_portfolio3.jpg")

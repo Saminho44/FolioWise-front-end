@@ -6,8 +6,6 @@ from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.app_logo import add_logo
 
 
-from streamlit_option_menu import option_menu
-
 st.set_page_config(page_title="Home", page_icon="🏡", layout="wide")
 
 # add_logo("logo.jpeg", height=20)
