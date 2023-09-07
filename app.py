@@ -2,9 +2,10 @@ import streamlit as st
 import pandas as pd
 import os
 import time
+import json
 
 from PIL import Image
-
+from streamlit_lottie import st_lottie
 from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_option_menu import option_menu
 
@@ -18,7 +19,25 @@ def add_logo(logo_path, width, height):
     return modified_logo
 my_logo = add_logo(logo_path="images/FolioWise_logo.png", width=200, height=200)
 
+def load_lottiefile(filepath: str):
+    with open(filepath, "r") as f:
+        return json.load(f)
 
+def exposure():
+    msg = st.toast('Searching best-performing stocks😉...')
+    time.sleep(4)
+    msg.toast('Relax🏃...')
+    time.sleep(4)
+    msg.toast('Ready!', icon = "✅")
+
+def predict():
+    msg = st.toast('Generating weights🤑...')
+    time.sleep(4)
+    msg.toast('Relax🏃...')
+    time.sleep(4)
+    msg.toast('Ready!', icon = "✅")
+
+homepage = load_lottiefile("lottie_files/homepage.json")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     st.write(' ')
@@ -35,7 +54,7 @@ with col5:
 
 selected = option_menu(
         menu_title=None,
-        options=["Home", "Optimization", "Validation", "About"],
+        options=["Home", "Optimization", "Valuation", "About"],
         icons=["house", "gear", "book", "envelope"],
         menu_icon="cast",
         default_index=0,
@@ -45,33 +64,30 @@ selected = option_menu(
 
 
 if selected == "Home":
+    # st_lottie(homepage)
     st.markdown("<h1 style='text-align: center; color: black;'>Welcome to FolioWise</h1>", unsafe_allow_html=True)
 
-    st.markdown("We are so glad you stopped by!")
+    st.markdown("<h6 style='text-align: center; color: black;'>We are so glad you stopped by!</h6>", unsafe_allow_html=True)
 
 
-    """
-    🚀 Welcome to FolioWise - Where Your Portfolio Soars to New Heights! 📈
+    """🚀 Welcome to FolioWise - Where Your Portfolio Soars to New Heights! 📈"""
 
-    🌟 Are you ready to embark on an exhilarating journey into the world of investment?\
-        Look no further! FolioWise is here to revolutionize your stock portfolio and maximize your returns. 🌟
+    """🌟 Are you ready to embark on an exhilarating journey into the world of investment?\
+        Look no further! FolioWise is here to revolutionize your stock portfolio and maximize your returns. 🌟"""
 
-    📊 Our Mission 📊
-    At FolioWise, we're on a mission to empower investors like you to make informed decisions and achieve financial success.\
-        We believe that investing should be accessible, exciting, and profitable for everyone, from beginners to seasoned pros.
+    """📊 Our Mission 📊 At FolioWise, we're on a mission to empower investors like you to make informed decisions and achieve financial success.\
+        We believe that investing should be accessible, exciting, and profitable for everyone, from beginners to seasoned pros."""
 
-    💼 What We Offer 💼
+    """💼 What We Offer 💼
     🌐 Cutting-Edge Technology: Our state-of-the-art portfolio optimization algorithms are designed to supercharge your investments.\
-        Say goodbye to guesswork and hello to data-driven insights!
+        Say goodbye to guesswork and hello to data-driven insights!"""
 
-    🌐 Your Success, Our Priority 🌐
+    """🌐 Your Success, Our Priority 🌐
     Your financial goals are our top priority. Whether you're planning for retirement, saving for a dream vacation,\
         or simply looking to grow your wealth, we've got the tools and expertise to make it happen. With FolioWise\
-            by your side, you're not just investing – you're investing smart!
+            by your side, you're not just investing – you're investing smart!"""
 
-    👉 Get Started Now! 👈
-
-    """
+    """👉 Get Started Now! 👈"""
 
 
 
@@ -169,9 +185,7 @@ if selected == "Optimization":
 
             st.write("Prediction")
             if st.button("Predict", key="portfolio11"):
-                with st.spinner(text='In progress'):
-                    time.sleep(3)
-                    st.success('Done')
+                predict()
                 main_col1, main_col2 = st.columns(2, gap="small")
 
                 with main_col1:
@@ -183,7 +197,7 @@ if selected == "Optimization":
 
                 with main_col2:
                     col1, col2 = st.columns(2)
-                    col1.metric(label="Return", value="+53.35%")
+                    col1.metric(label="Return", value=(amount * 0.5335), delta="+53.35%")
                     col2.metric(label="Drawdown", value="-1.78%")
 
                     style_metric_cards()
@@ -211,9 +225,7 @@ if selected == "Optimization":
                                                                                 key="industry_select")
 
         if st.button("Get Exposure"):
-            with st.spinner(text='In progress'):
-                time.sleep(3)
-                st.success('Done')
+            exposure()
             st.write("Diversified stocks:")
             st.session_state.selection = ["Apple", "Adobe", "Abbolt", "Bristol Myers", "Capital One", "Goldman Sachs",\
                 "Simon Property", "American Tower", "Philip Morris", "Heinz Company", "Duke Energy", "NextEra Energy",\
@@ -242,9 +254,7 @@ if selected == "Optimization":
 
         st.write("Prediction")
         if st.button("Predict", key="portfolio2"):
-            with st.spinner(text='In progress'):
-                time.sleep(3)
-                st.success('Done')
+            predict()
             main_col1, main_col2 = st.columns(2, gap="small")
 
 
@@ -257,7 +267,7 @@ if selected == "Optimization":
 
             with main_col2:
                 col1, col2 = st.columns(2)
-                col1.metric(label="Return", value="+12.49")
+                col1.metric(label="Return", value=(amount * 0.1249), delta="+12.49%")
                 col2.metric(label="Drawdown", value="-8.62%")
 
                 style_metric_cards()
@@ -270,8 +280,8 @@ if selected == "Optimization":
             st.image("images/DeepDow_portfolio2.png")
 
 
-if selected == "Validation":
-    st.header('Validation', divider='rainbow')
+if selected == "Valuation":
+    st.header('Valuation', divider='rainbow')
     csv_path = os.path.join(os.getcwd())
 
     # functions
@@ -304,9 +314,7 @@ if selected == "Validation":
 
 
     if st.button("Create Portfolio"):
-        with st.spinner(text='In progress'):
-                    time.sleep(3)
-                    st.success('Done')
+        exposure()
         portfolio = ["Advanced Micro Devices", "Apple", "Berkshire Hathaway", "Boeing Company", "Broadcom Limited",\
             "Caterpillar", "Cisco Systems", "Eli Lily and Company", "FedEx Corporation", "Netflix", "Oracle Corporation",\
                 "Visa Inc", "Walmart Inc"]
@@ -315,9 +323,7 @@ if selected == "Validation":
 
 
     if st.button("Optimize Portfolio"):
-        with st.spinner(text='In progress'):
-                    time.sleep(3)
-                    st.success('Done')
+        predict()
         main_col1, main_col2 = st.columns(2, gap="small")
 
         with main_col1:
@@ -329,7 +335,7 @@ if selected == "Validation":
 
         with main_col2:
             col1, col2 = st.columns(2)
-            col1.metric(label="Return", value="+35.44%")
+            col1.metric(label="Return", value=(amount * 0.3544), delta="+35.44%")
             col2.metric(label="Drawdown", value="-1.37%")
 
             style_metric_cards()
@@ -350,6 +356,17 @@ if selected == "About":
     st.write("   ")
     st.write("   ")
     st.write("   ")
+
+    hello_team = load_lottiefile("lottie_files/hello_team.json")
+
+    st_lottie(hello_team,
+              speed=1,
+              reverse=False,
+              loop=True,
+              quality="low",
+              height=250,
+              key=None)
+
     col1, col2 = st.columns(2)
 
     with col1:
