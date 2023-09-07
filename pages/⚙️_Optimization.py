@@ -8,7 +8,7 @@ from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(page_title="Optimization", page_icon="⚙️", layout="wide")
 
 if st.button("🏡Home"):
-    switch_page("Home")
+    switch_page("app")
 csv_path = os.path.join(os.getcwd())
 # functions
 def industry():
