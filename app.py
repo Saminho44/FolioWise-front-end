@@ -25,16 +25,16 @@ def load_lottiefile(filepath: str):
 
 def exposure():
     msg = st.toast('Searching best-performing stocks😉...')
-    time.sleep(4)
+    time.sleep(3)
     msg.toast('Relax🏃...')
-    time.sleep(4)
+    time.sleep(3)
     msg.toast('Ready!', icon = "✅")
 
 def predict():
     msg = st.toast('Generating weights🤑...')
-    time.sleep(4)
+    time.sleep(3)
     msg.toast('Relax🏃...')
-    time.sleep(4)
+    time.sleep(3)
     msg.toast('Ready!', icon = "✅")
 
 homepage = load_lottiefile("lottie_files/homepage.json")
@@ -197,7 +197,7 @@ if selected == "Optimization":
 
                 with main_col2:
                     col1, col2 = st.columns(2)
-                    col1.metric(label="Return", value=(amount * 0.5335), delta="+53.35%")
+                    col1.metric(label="Return", value="+53.35%")
                     col2.metric(label="Drawdown", value="-1.78%")
 
                     style_metric_cards()
@@ -267,7 +267,7 @@ if selected == "Optimization":
 
             with main_col2:
                 col1, col2 = st.columns(2)
-                col1.metric(label="Return", value=(amount * 0.1249), delta="+12.49%")
+                col1.metric(label="Return", value="+12.49%")
                 col2.metric(label="Drawdown", value="-8.62%")
 
                 style_metric_cards()
@@ -335,7 +335,7 @@ if selected == "Valuation":
 
         with main_col2:
             col1, col2 = st.columns(2)
-            col1.metric(label="Return", value=(amount * 0.3544), delta="+35.44%")
+            col1.metric(label="Return", value="+35.44%")
             col2.metric(label="Drawdown", value="-1.37%")
 
             style_metric_cards()
