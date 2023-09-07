@@ -3,15 +3,34 @@ import pandas as pd
 import os
 import time
 
-from streamlit_extras.switch_page_button import switch_page
+from PIL import Image
+
 from streamlit_extras.metric_cards import style_metric_cards
-from streamlit_extras.app_logo import add_logo
 from streamlit_option_menu import option_menu
 
 
 st.set_page_config(page_title="Home", page_icon="🏡", layout="wide")
 
-# add_logo("logo.jpeg", height=20)
+def add_logo(logo_path, width, height):
+    """Read and return a resized logo"""
+    logo = Image.open(logo_path)
+    modified_logo = logo.resize((width, height))
+    return modified_logo
+my_logo = add_logo(logo_path="images/FolioWise_logo.png", width=200, height=200)
+
+
+col1, col2, col3, col4, col5 = st.columns(5)
+with col1:
+    st.write(' ')
+with col2:
+    st.write(' ')
+with col3:
+    st.image(my_logo)
+with col4:
+    st.write(' ')
+with col5:
+    st.write(' ')
+
 
 
 selected = option_menu(
@@ -23,10 +42,10 @@ selected = option_menu(
         orientation="horizontal",
     )
 
+
+
 if selected == "Home":
-    st.markdown("""
-    # Welcome to FolioWise
-    """)
+    st.markdown("<h1 style='text-align: center; color: black;'>Welcome to FolioWise</h1>", unsafe_allow_html=True)
 
     st.markdown("We are so glad you stopped by!")
 
@@ -325,18 +344,23 @@ if selected == "Validation":
 
 
 if selected == "About":
-    st.write("Meet your founders!")
+    st.markdown("<h1 style='text-align: center; color: black;'>Meet the founders!</h1>", unsafe_allow_html=True)
+    st.write("   ")
+    st.write("   ")
+    st.write("   ")
+    st.write("   ")
+    st.write("   ")
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image("images/Sam.jpg", caption="Sam")
+        st.image("images/Sam.png", caption="Sam", use_column_width=False)
 
 
-        st.image("images/Maalya.jpg", caption="Maalya")
+        st.image("images/Maalya.png", caption="Maalya", use_column_width=False)
 
 
     with col2:
-        st.image("images/Dimitri.jpg", caption="Dimitri")
+        st.image("images/Dimitri.png", caption="Dimitri", use_column_width=False)
 
 
-        st.image("images/Minerva.jpg", caption="Minerva")
+        st.image("images/Minerva.png", caption="Minerva", use_column_width=False)
