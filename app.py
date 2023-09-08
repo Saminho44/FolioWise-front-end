@@ -21,8 +21,18 @@ def add_bg_from_local(image_file):
     f"""
     <style>
     .stApp {{
-        background-image: url(data:image/{"webp"};base64,{encoded_string.decode()});
-        background-size: cover
+        background-image: url(data:image/{"jpg"};base64,{encoded_string.decode()});
+        background-size: cover;
+        background-attachment: local;
+
+    }}
+
+    [data-testid="stHeader"] {{
+        background-color: rgba(0, 0, 0, 0);
+    }}
+
+    [data-testid="stToolbar"] {{
+        right:2rem;
     }}
     </style>
     """,
@@ -30,7 +40,7 @@ def add_bg_from_local(image_file):
     )
 
 
-add_bg_from_local('images/brain.webp')
+add_bg_from_local('images/background_image.jpg')
 
 def add_logo(logo_path, width, height):
     """Read and return a resized logo"""
@@ -89,25 +99,6 @@ if selected == "Home":
 
     st.markdown("<h4 style='text-align: center; color: black;'>We are so glad you stopped by!</h4>", unsafe_allow_html=True)
 
-
-    """🚀 Welcome to FolioWise - Where Your Portfolio Soars to New Heights! 📈"""
-
-    """🌟 Are you ready to embark on an exhilarating journey into the world of investment?\
-        Look no further! FolioWise is here to revolutionize your stock portfolio and maximize your returns. 🌟"""
-
-    """📊 Our Mission 📊 At FolioWise, we're on a mission to empower investors like you to make informed decisions and achieve financial success.\
-        We believe that investing should be accessible, exciting, and profitable for everyone, from beginners to seasoned pros."""
-
-    """💼 What We Offer 💼
-    🌐 Cutting-Edge Technology: Our state-of-the-art portfolio optimization algorithms are designed to supercharge your investments.\
-        Say goodbye to guesswork and hello to data-driven insights!"""
-
-    """🌐 Your Success, Our Priority 🌐
-    Your financial goals are our top priority. Whether you're planning for retirement, saving for a dream vacation,\
-        or simply looking to grow your wealth, we've got the tools and expertise to make it happen. With FolioWise\
-            by your side, you're not just investing – you're investing smart!"""
-
-    """👉 Get Started Now! 👈"""
 
 
 
@@ -246,7 +237,7 @@ if selected == "Optimization":
 
         if st.button("Get Exposure"):
             exposure()
-            st.write("Diversified stocks:")
+            st.subheader("Diversified stocks:")
             st.session_state.selection = ["Apple", "Adobe", "Abbolt", "Bristol Myers", "Capital One", "Goldman Sachs",\
                 "Simon Property", "American Tower", "Philip Morris", "Heinz Company", "Duke Energy", "NextEra Energy",\
                     "Netflix", "AT&T", "Exxon Mobil", "ConocoPhillips", "Emerson Electric Company", "Lowes Companies", "McDonalds"]
@@ -338,7 +329,7 @@ if selected == "Valuation":
         portfolio = ["Advanced Micro Devices", "Apple", "Berkshire Hathaway", "Boeing Company", "Broadcom Limited",\
             "Caterpillar", "Cisco Systems", "Eli Lily and Company", "FedEx Corporation", "Netflix", "Oracle Corporation",\
                 "Visa Inc", "Walmart Inc"]
-        st.write("What do you think of these?")
+        st.subheader("What do you think of these?")
         st.write(", ".join(map(str, portfolio)))
 
 
@@ -377,15 +368,15 @@ if selected == "About":
     st.write("   ")
     st.write("   ")
 
-    hello_team = load_lottiefile("lottie_files/hello_team.json")
+    # hello_team = load_lottiefile("lottie_files/hello_team.json")
 
-    st_lottie(hello_team,
-              speed=1,
-              reverse=False,
-              loop=True,
-              quality="low",
-              height=250,
-              key=None)
+    # st_lottie(hello_team,
+    #           speed=1,
+    #           reverse=False,
+    #           loop=True,
+    #           quality="low",
+    #           height=250,
+    #           key=None)
 
     col1, col2 = st.columns(2)
 
@@ -397,7 +388,7 @@ if selected == "About":
 
 
     with col2:
-        st.image("images/Dimitri.png", caption="Dimitri", use_column_width=False)
+        st.image("images/Dimitri.png", caption="Dimitri", use_column_width=False, width=230)
 
 
         st.image("images/Minerva.png", caption="Minerva", use_column_width=False)
