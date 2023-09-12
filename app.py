@@ -7,11 +7,35 @@ from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.app_logo import add_logo
 from streamlit_option_menu import option_menu
+from PIL import Image
 
 
 st.set_page_config(page_title="Home", page_icon="🏡", layout="wide")
 
+streamlit_style = """
+			<style>
+			@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+			html, body, [class*="css"]  {
+			font-family: 'Roboto', sans-serif;
+			}
+			</style>
+			"""
+
 # add_logo("logo.jpeg", height=20)
+
+def add_logo(logo_path, width, height):
+    """Read and return a resized logo"""
+    logo = Image.open(logo_path)
+    modified_logo = logo.resize((width, height))
+    return modified_logo
+
+my_logo = add_logo(logo_path="images/logo.png", width=150, height=150)
+st.image(my_logo)
+
+# OR
+
+# st.sidebar.image(add_logo(logo_path="your/logo/path", width=50, height=60))
 
 
 selected = option_menu(
@@ -28,7 +52,8 @@ if selected == "Home":
     # Welcome to FolioWise
     """)
 
-    st.markdown("We are so glad you stopped by!")
+    # st.markdown("We are so glad you stopped by!", align_text='center')
+    st.markdown('<div style="text-align: center;">Hello World!</div>', unsafe_allow_html=True)
 
 
     """
@@ -50,9 +75,8 @@ if selected == "Home":
         or simply looking to grow your wealth, we've got the tools and expertise to make it happen. With FolioWise\
             by your side, you're not just investing – you're investing smart!
 
-    👉 Get Started Now! 👈
+    👉 Get Started Now! 👈"""
 
-    """
 
 
 
